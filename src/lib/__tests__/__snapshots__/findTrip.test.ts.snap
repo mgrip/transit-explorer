@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can find trip 1`] = `
+[
+  {
+    "routeId": 1,
+    "routePatternId": 1,
+    "stopIds": [
+      1,
+      2,
+      3,
+    ],
+  },
+  {
+    "routeId": 2,
+    "routePatternId": 2,
+    "stopIds": [
+      3,
+      5,
+    ],
+  },
+]
+`;

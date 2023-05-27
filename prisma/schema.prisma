@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Route {
+  id            Int            @id @default(autoincrement())
+  name          String
+  longName      String
+  description   String?
+  type          String?
+  color         String?
+  routePatterns RoutePattern[]
+  sourceInfo    Json
+  sourceId      String
+}
+
+// for now, we are only dealing with "canonical" route patterns
+model RoutePattern {
+  id                Int                @id @default(autoincrement())
+  name              String
+  route             Route              @relation(fields: [routeId], references: [id])
+  routeId           Int
+  routePatternStops RoutePatternStop[]
+  sourceInfo        Json
+  sourceId          String
+}
+
+model Stop {
+  id                Int                @id @default(autoincrement())
+  name              String
+  description       String?
+  address           String?
+  latitude          Float
+  longitude         Float
+  routePatternStops RoutePatternStop[]
+  sourceInfo        Json
+  sourceId          String
+}
+
+model RoutePatternStop {
+  routePattern   RoutePattern @relation(fields: [routePatternId], references: [id])
+  routePatternId Int
+  stop           Stop         @relation(fields: [stopId], references: [id])
+  stopId         Int
+  index          Int
+
+  @@unique([routePatternId, stopId])
+}
