@@ -16,7 +16,7 @@ You can either choose to install postgres manually, or use docker to manage it f
 
 ### Clone the repository
 
-After installing node and docker (or manually installing postgres), you can clone this repository locally, which contains all of the code necessary to run the 1000 MORE web app.
+After installing node and docker (or manually installing postgres), you can clone this repository locally, which contains all of the code necessary to run the web app.
 
 ```bash
 git clone https://github.com/mgrip/transit-explorer.git
