@@ -1,6 +1,6 @@
 name: Cypress Tests
 
-on: [push, pull_request_target]
+on: [push]
 
 jobs:
   cypress-run:
@@ -24,9 +24,9 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/transit-explorer
 
     steps:
-      - name: Checkout
-        if: ${{ github.event_name != 'pull_request_target' }}
+      - name: Check out Git repository
         uses: actions/checkout@v3
+
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run

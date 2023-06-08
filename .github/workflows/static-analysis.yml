@@ -1,6 +1,6 @@
 name: Static Analysis
 
-on: [push, pull_request_target]
+on: [push]
 
 jobs:
   lint:
@@ -8,14 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v3
-
-      - name: Checkout PR
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -31,14 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v3
-
-      - name: Checkout PR
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -54,14 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v3
-
-      - name: Checkout PR
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
