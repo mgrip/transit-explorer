@@ -10,7 +10,9 @@
     "lint": "next lint",
     "cypress": "cypress open",
     "test": "jest --watch",
-    "sync-data": "npx ts-node-esm src/scripts/syncData/index.ts"
+    "test:ci": "jest --ci",
+    "sync-data": "npx ts-node-esm src/scripts/syncData/index.ts",
+    "cli": "npx ts-node-esm src/cli/index.ts"
   },
   "prisma": {
     "seed": "ts-node-esm prisma/seed/index.ts"
