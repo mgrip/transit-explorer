@@ -1,0 +1,38 @@
+name: Cypress Tests
+
+on: [push, pull_request_target]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13.2-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: 1000more
+        ports:
+          - "5432:5432"
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/transit-explorer
+
+    steps:
+      - name: Checkout
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v3
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npx prisma migrate dev
+          start: npm run dev
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
