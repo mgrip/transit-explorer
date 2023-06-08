@@ -1,0 +1,50 @@
+name: Static Analysis
+
+on: [push, pull_request_target]
+
+jobs:
+  lint:
+    name: Run linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v3
+
+      - name: Checkout PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linters
+        run: npm run lint
+
+  typescript:
+    name: Check typescript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v3
+
+      - name: Checkout PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run typescript
+        run: npx tsc
