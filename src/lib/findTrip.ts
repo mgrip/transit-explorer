@@ -53,7 +53,7 @@ function incrementTripSegments(
     ).reduce<RoutePatternMap[]>((acc, routePattern) => {
       const matchingRoutePatternStop = routePattern.routePatternStops.find(
         (routePatternStop) =>
-          routePatternStop.stopId === currentRoutePatternStop.stopId
+          routePatternStop.stopId === currentRoutePatternStop.id
       );
 
       // don't allow transfer to route patterns on the same route
