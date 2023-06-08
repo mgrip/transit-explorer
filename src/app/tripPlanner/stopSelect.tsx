@@ -17,12 +17,14 @@ export default function StopSelect({
 
   useEffect(() => {
     if (departureStopId && arrivalStopId && hasSubmitted) {
-      startTransition(async () => {
-        const displayData = await findTripData({
-          departureStopId,
-          arrivalStopId,
-        });
-        setDisplayData(displayData);
+      startTransition(() => {
+        (async () => {
+          const displayData = await findTripData({
+            departureStopId,
+            arrivalStopId,
+          });
+          setDisplayData(displayData);
+        })();
       });
     }
   }, [departureStopId, arrivalStopId, hasSubmitted]);
